@@ -26,7 +26,7 @@ public class BoardController {
     public String boardWritePro(Board board) {
 
         boardService.write(board);
-        return "";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/list")
