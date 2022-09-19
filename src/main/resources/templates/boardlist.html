@@ -6,16 +6,28 @@
 </head>
 
 <style>
+
+        a {
+        text-decoration : none;
+        color : inherit;
+        }
+
       .layout {
-        width : 500px;
+        max-width : 1200px;
         margin : 0 auto;
         margin-top : 40px;
+        text-align : center;
+      }
+
+      .main_box {
+        display:inline-block;
       }
 
 </style>
 <body>
 
       <div class="layout">
+          <div class="main_box">
           <table>
               <thead>
               <tr>
@@ -32,7 +44,19 @@
               </tr>
               </tbody>
           </table>
-      </div>
+
       <a th:href="@{/board/write}">글 작성</a>
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if = "${page != nowPage}" th:href="@{/board/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text = "${page}"></a>
+            <strong th:if = "${page == nowPage}" th:text = "${page}" style="color : red "></strong>
+        </th:block>
+          <form th:action = "@{/board/list}" method="get">
+              <input type="text" name="searchKeyword">
+              <button type="submit">검색</button>
+          </form>
+          </div>
+      </div>
+
+
 </body>
 </html>
